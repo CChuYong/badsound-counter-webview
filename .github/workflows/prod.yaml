@@ -1,0 +1,70 @@
+name: 웹뷰 빌드 후 배포하기
+on:
+  push:
+    branches: [ 'main' ]
+
+env:
+  GITHUB_ENVIRONMENT_NAME: prod
+  ECR_REPOSITORY_NAME: badsound-counter-webview
+  ARGOCD_SERVICE_NAME: bsc-webview
+  ARGOCD_REPO_NAME: CChuYong/bsc-argocd-manifest
+
+concurrency:
+  group: webview
+
+jobs:
+  prepare-variables:
+    name: 환경변수 준비하기
+    runs-on: ubuntu-latest
+    outputs:
+      github-environment-name: ${{ steps.setup-env.outputs.github-environment-name }}
+      ecr-repository-name: ${{ steps.setup-env.outputs.ecr-repository-name }}
+      image-tag: ${{ steps.setup-env.outputs.image-tag }}
+      argocd-service-name: ${{ steps.setup-env.outputs.argocd-service-name }}
+      argocd-repo-name: ${{ steps.setup-env.outputs.argocd-repo-name }}
+    steps:
+      - name: GitHub 에서 레포 받아오기
+        uses: actions/checkout@v3
+
+      - name: 환경변수 출력하기
+        id: setup-env
+        run: |
+          echo "github-environment-name=$GITHUB_ENVIRONMENT_NAME" >> $GITHUB_OUTPUT
+          echo "ecr-repository-name=$ECR_REPOSITORY_NAME" >> $GITHUB_OUTPUT
+          echo "image-tag=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "argocd-service-name=$ARGOCD_SERVICE_NAME" >> $GITHUB_OUTPUT
+          echo "argocd-repo-name=$ARGOCD_REPO_NAME" >> $GITHUB_OUTPUT
+
+  call-build-workflow:
+    if: github.event_name == 'push'
+    needs: [prepare-variables]
+    name: 이미지 빌드 & 푸쉬
+    uses: ./.github/workflows/build.yaml
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      environment: ${{ needs.prepare-variables.outputs.github-environment-name }}
+      ecr-repository-name: ${{ needs.prepare-variables.outputs.ecr-repository-name }}
+      image-tag: ${{ needs.prepare-variables.outputs.image-tag }}
+    secrets:
+      AWS_ASSUME_ROLE_ARN: ${{ secrets.AWS_ASSUME_ROLE_ARN }}
+      AWS_ECR_REGISTRY_URL: ${{ secrets.AWS_ECR_REGISTRY_URL }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+
+  call-deploy-workflow:
+    needs: [prepare-variables, call-build-workflow]
+    name: ArgoCD로 배포하기
+    uses: ./.github/workflows/argocd.yaml
+    permissions:
+      contents: write
+    with:
+      argocd-repo-name: ${{ needs.prepare-variables.outputs.argocd-repo-name }}
+      overlay-name: 'prod'
+      service-name: ${{ needs.prepare-variables.outputs.argocd-service-name }}
+      image-name: '${{ needs.prepare-variables.outputs.ecr-repository-name }}:${{ needs.prepare-variables.outputs.image-tag }}'
+      environment: ${{ needs.prepare-variables.outputs.github-environment-name }}
+      release-tag: ${{ needs.prepare-variables.outputs.image-tag }}
+    secrets:
+      AWS_ECR_REGISTRY_URL: ${{ secrets.AWS_ECR_REGISTRY_URL }}
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
