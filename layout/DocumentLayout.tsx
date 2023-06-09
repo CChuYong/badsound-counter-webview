@@ -26,7 +26,7 @@ export default function DocumentLayout({children, title}: {children: React.React
                 background-color: #${color};
             }
         `}</style>
-        <div style={{paddingLeft: 3, paddingBottom: 16, paddingTop: 16}}>
+        <div style={{paddingLeft: 3, paddingBottom: 16}}>
             <div style={{
                 display: "flex",
                 flexDirection: "row",
