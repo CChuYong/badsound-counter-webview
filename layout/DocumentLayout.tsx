@@ -7,12 +7,16 @@ export default function DocumentLayout({children, title}: {children: React.React
     useEffect(() => {
         import('webview-javascript-bridge').then((ir) => {
             returnPage = () => {
+                console.log('go back to return page..')
                 ir.default.sendMessage({
                     action: 'return',
                 });
             }
         })
     }, []);
+    const dynamicReturn = () => {
+        returnPage();
+    }
     return <div>
         <div style={{paddingLeft: 3, paddingBottom: 16, paddingTop: 16}}>
             <div style={{
@@ -21,7 +25,7 @@ export default function DocumentLayout({children, title}: {children: React.React
                 gap: 8,
                 alignItems: "center",
             }}>
-                <FaChevronLeft size={18} onClick={returnPage}/>
+                <FaChevronLeft size={18} onClick={dynamicReturn}/>
                 <a style={{fontSize: 20}}>{title}</a>
             </div>
         </div>
