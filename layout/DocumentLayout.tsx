@@ -2,11 +2,8 @@ import {FaChevronLeft} from "react-icons/fa";
 import {useEffect} from "react";
 import {useRouter} from "next/router";
 
-
+let returnPage: () => void = () => {};
 export default function DocumentLayout({children, title}: {children: React.ReactNode, title: String}) {
-    const router = useRouter();
-    const color = router.query.bgColor ?? '1b1b1b';
-    let returnPage: () => void = () => {};
     useEffect(() => {
         import('webview-javascript-bridge').then((ir) => {
             returnPage = () => {
@@ -17,6 +14,9 @@ export default function DocumentLayout({children, title}: {children: React.React
             }
         })
     }, []);
+    const router = useRouter();
+    const color = router.query.bgColor ?? '1b1b1b';
+
     const dynamicReturn = () => {
         returnPage();
     }
