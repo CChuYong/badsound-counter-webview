@@ -1,8 +1,11 @@
 import {FaChevronLeft} from "react-icons/fa";
 import {useEffect} from "react";
+import {useRouter} from "next/router";
 
 
 export default function DocumentLayout({children, title}: {children: React.ReactNode, title: String}) {
+    const router = useRouter();
+    const color = router.query.bgColor ?? '1b1b1b';
     let returnPage: () => void = () => {};
     useEffect(() => {
         import('webview-javascript-bridge').then((ir) => {
@@ -18,6 +21,11 @@ export default function DocumentLayout({children, title}: {children: React.React
         returnPage();
     }
     return <div>
+        <style jsx global>{`
+            * {
+                background-color: #${color};
+            }
+        `}</style>
         <div style={{paddingLeft: 3, paddingBottom: 16, paddingTop: 16}}>
             <div style={{
                 display: "flex",
