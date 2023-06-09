@@ -54,4 +54,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: user/app:latest
+          tags: ${{ secrets.AWS_ECR_REGISTRY_URL }}/${{ inputs.ecr-repository-name }}:${{ inputs.image-tag }}
