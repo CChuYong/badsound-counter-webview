@@ -3,7 +3,7 @@ import DocumentLayout from "@/layout/DocumentLayout";
 export default function Notice() {
     return <DocumentLayout title={"개인정보 처리 방침"}>
         <>
-            <p className="ls2" lh6="" bs5="" ts4="">
+            <p className="ls2">
                 <em className="emphasis">
                     &lt;베어어스&gt;('https://bearus.co/'이하 '나쁜말카운터 ')
                 </em>
