@@ -1,4 +1,11 @@
 import {FaChevronLeft} from "react-icons/fa";
+import webViewJavaScriptBridge from 'webview-javascript-bridge';
+
+async function returnPage() {
+    await webViewJavaScriptBridge.sendMessage({
+        action: 'return',
+    });
+}
 
 export default function DocumentLayout({children, title}: {children: React.ReactNode, title: String}) {
     return <div>
@@ -9,7 +16,7 @@ export default function DocumentLayout({children, title}: {children: React.React
                 gap: 8,
                 alignItems: "center",
             }}>
-                <FaChevronLeft size={18}/>
+                <FaChevronLeft size={18} onClick={returnPage}/>
                 <a style={{fontSize: 20}}>{title}</a>
             </div>
         </div>
