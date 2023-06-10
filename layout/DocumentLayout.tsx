@@ -15,18 +15,30 @@ export default function DocumentLayout({children, title}: {children: React.React
         })
     }, []);
     const router = useRouter();
-    const color = router.query.bgColor ?? '1b1b1b';
+    const color = router.query.bgColor ?? 'ffffff';
 
     const dynamicReturn = () => {
         returnPage();
     }
-    return <div>
+    return <div style={{
+
+    }}>
         <style jsx global>{`
             * {
                 background-color: #${color};
             }
+            body {
+                margin: 0;
+            }
         `}</style>
-        <div style={{paddingLeft: 3, paddingBottom: 16}}>
+        <div style={{
+            paddingTop: 3,
+            paddingLeft: 3,
+            paddingBottom: 16,
+            position: 'fixed',
+            backgroundColor: `#${color}`,
+            width: '100%'
+        }}>
             <div style={{
                 display: "flex",
                 flexDirection: "row",
@@ -37,7 +49,13 @@ export default function DocumentLayout({children, title}: {children: React.React
                 <a style={{fontSize: 20}}>{title}</a>
             </div>
         </div>
+        <div style={{
+            paddingTop: 40,
+            paddingLeft: 16,
+            paddingRight: 16,
+        }}>
+            {children}
+        </div>
 
-        {children}
     </div>
 }
