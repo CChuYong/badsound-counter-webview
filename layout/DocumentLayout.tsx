@@ -33,7 +33,7 @@ export default function DocumentLayout({children, title}: {children: React.React
         `}</style>
         <div style={{
             paddingTop: 3,
-            paddingLeft: 3,
+            paddingLeft: 12,
             paddingBottom: 16,
             position: 'fixed',
             backgroundColor: `#${color}`,
