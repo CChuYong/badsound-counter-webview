@@ -1,2 +1,2 @@
 ## BadSoundCounter WebView
-웹뷰입니다
+웹뷰입니다.
