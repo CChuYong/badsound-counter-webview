@@ -7,7 +7,7 @@ export default function Notice() {
     </DocumentLayout>
 }
 
-function NoticeElements({title, date}) {
+function NoticeElements({title, date}: {title: string, date: string}) {
     return <div style={{
         display: 'flex',
         flexDirection: 'row',
