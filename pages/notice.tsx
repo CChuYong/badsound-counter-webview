@@ -1,5 +1,6 @@
 import DocumentLayout from "@/layout/DocumentLayout";
 import {FaChevronRight} from "react-icons/fa";
+import '../app/global.css';
 
 export default function Notice() {
     return <DocumentLayout title={"공지사항"}>

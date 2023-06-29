@@ -1,4 +1,5 @@
 import DocumentLayout from "@/layout/DocumentLayout";
+import '../app/global.css';
 
 export default function Notice() {
     return <DocumentLayout title={"개인정보 처리 방침"}>
