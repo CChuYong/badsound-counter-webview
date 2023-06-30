@@ -50,7 +50,7 @@ export default function DocumentLayout({children, title}: {children: React.React
             </div>
         </div>
         <div style={{
-            paddingTop: 40,
+            paddingTop: 45,
             paddingLeft: 16,
             paddingRight: 16,
         }}>

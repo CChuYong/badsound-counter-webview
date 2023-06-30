@@ -4,7 +4,8 @@ import '../app/global.css';
 
 export default function Notice() {
     return <DocumentLayout title={"공지사항"}>
-        <NoticeElements title={"나쁜말 카운터 런칭!"} date={"2023.06.23."}></NoticeElements>
+            <NoticeElements title={"나쁜말 카운터 런칭!"} date={"2023.06.23."}></NoticeElements>
+            <NoticeElements title={"나쁜말 카운터 0.0.1 릴리즈!"} date={"2023.06.30."}></NoticeElements>
     </DocumentLayout>
 }
 
@@ -12,7 +13,8 @@ function NoticeElements({title, date}: {title: string, date: string}) {
     return <div style={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        marginBottom: '13px'
     }}>
         <div style={{
             display: 'flex',
