@@ -62,7 +62,7 @@ export default function MagCloudLayout({children, title}: {children: React.React
                 paddingTop: 8,
                 paddingBottom:8,
             }}>
-                <FaChevronLeft className={"title-icon"} size={18} onClick={dynamicReturn}/>
+                <FaChevronLeft className={"title-icon"} size={18} color={"#57534E"} onClick={dynamicReturn}/>
                 <a className={"title-text"}>{title}</a>
                 <div className={"title-icon"} />
             </div>
