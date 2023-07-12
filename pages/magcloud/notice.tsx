@@ -6,7 +6,7 @@ import MagCloudLayout from "@/layout/MagCloudLayout";
 
 export default function Notice() {
     return <MagCloudLayout title={"공지사항"}>
-            <NoticeElements title={"매지구름 런칭!"} date={"2023.07.08."}></NoticeElements>
+            준비중이에요
     </MagCloudLayout>
 }
 
