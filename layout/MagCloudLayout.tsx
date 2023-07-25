@@ -15,7 +15,10 @@ export default function MagCloudLayout({children, title}: {children: React.React
         })
     }, []);
     const router = useRouter();
-    const color = router.query.bgColor ?? 'ffffff';
+
+    const darkMode = router.query.darkMode ?? false;
+    const color = darkMode ? '000000' : 'ffffff';
+    const fontColor = darkMode ? 'ffffff' : '000000';
 
     const dynamicReturn = () => {
         returnPage();
@@ -45,7 +48,7 @@ export default function MagCloudLayout({children, title}: {children: React.React
                 
                 .title-text {
                     font-size: 1.14285rem;
-                    color: #57534E;
+                    color: #${fontColor};
                 }
             `
         }
@@ -62,7 +65,7 @@ export default function MagCloudLayout({children, title}: {children: React.React
                 paddingTop: 8,
                 paddingBottom:8,
             }}>
-                <FaChevronLeft className={"title-icon"} size={18} color={"#57534E"} onClick={dynamicReturn}/>
+                <FaChevronLeft className={"title-icon"} size={18} color={"#" + fontColor} onClick={dynamicReturn}/>
                 <a className={"title-text"}>{title}</a>
                 <div className={"title-icon"} />
             </div>
