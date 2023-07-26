@@ -30,6 +30,7 @@ export default function MagCloudLayout({children, title}: {children: React.React
             }
             body {
                 margin: 0;
+                color: #${fontColor};
             }
         `}</style>
         <style jsx>{
@@ -48,7 +49,6 @@ export default function MagCloudLayout({children, title}: {children: React.React
                 
                 .title-text {
                     font-size: 1.14285rem;
-                    color: #${fontColor};
                 }
             `
         }
