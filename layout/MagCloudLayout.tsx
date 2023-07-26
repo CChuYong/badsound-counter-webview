@@ -16,7 +16,7 @@ export default function MagCloudLayout({children, title}: {children: React.React
     }, []);
     const router = useRouter();
 
-    const darkMode = router.query.darkMode ?? false;
+    const darkMode = router.query.darkMode == 'true' ?? false;
     const color = darkMode ? '000000' : 'ffffff';
     const fontColor = darkMode ? 'ffffff' : '000000';
 
